@@ -1,0 +1,2 @@
+[tool.vercel]
+entrypoint = "companyapi.companyapi.wsgi:application"
