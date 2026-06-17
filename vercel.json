@@ -10,5 +10,10 @@
       "src": "/(.*)",
       "dest": "/companyapi/companyapi/wsgi.py"
     }
-  ]
+  ],
+  "functions": {
+    "companyapi/companyapi/wsgi.py": {
+      "includeFiles": "companyapi/db.sqlite3"
+    }
+  }
 }
