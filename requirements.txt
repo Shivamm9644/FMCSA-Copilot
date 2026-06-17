@@ -7,3 +7,6 @@ google-generativeai
 reportlab
 python-dotenv
 pillow
+django-jazzmin
+djangorestframework-simplejwt
+django-cors-headers
