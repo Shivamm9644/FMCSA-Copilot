@@ -33,7 +33,7 @@ if has_dotenv:
 SECRET_KEY = 'django-insecure-b0(i#()x^$s=wdi)=ivs-0e0z_)8op=qi%91xd^uh8v2md+oab'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('VERCEL') != '1'
 
 ALLOWED_HOSTS = ['*']
 

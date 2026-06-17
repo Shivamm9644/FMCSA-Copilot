@@ -20,6 +20,12 @@ from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'companyapi.settings')
 
+import shutil
+if os.environ.get('VERCEL') == '1' and not os.path.exists('/tmp/db.sqlite3'):
+    source_db = os.path.join(path, 'db.sqlite3')
+    if os.path.exists(source_db):
+        shutil.copy(source_db, '/tmp/db.sqlite3')
+
 application = get_wsgi_application()
 
 app = application
