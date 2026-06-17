@@ -1,3 +1,10 @@
+import os
+import sys
+# Add the parent directory to sys.path
+path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if path not in sys.path:
+    sys.path.append(path)
+
 """
 WSGI config for companyapi project.
 
@@ -14,3 +21,5 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'companyapi.settings')
 
 application = get_wsgi_application()
+
+app = application
