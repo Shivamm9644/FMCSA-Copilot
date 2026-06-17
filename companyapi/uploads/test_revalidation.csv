@@ -1,0 +1,16 @@
+ELD File Header,,,,,,
+Jones,Tom,tomj123,,,,,
+12345,1A2B3C4D5E6F7G8H9,,,,
+1234567,Acme Trucking,7,0,,,
+DOC123,0,,,,,
+ABC123XYZ,,,,,,
+User List,,,,,,
+1,Tom,Jones,,,,
+CMV List,,,,,,
+1,12345,1A2B3C4D5E6F7G8H9,,,,
+ELD Event List,,,,,,
+1,1,1,1,1,123456,123.4,56.7,CityA,34.0,-118.0,0A
+2,1,1,1,2,123456,123.4,56.7,CityA,34.0,-118.0,0A
+3,1,1,1,3,123456,123.4,56.7,CityA,34.0,-118.0,0A
+End of File,,,,,,
+0000

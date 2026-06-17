@@ -1,0 +1,236 @@
+/* 
+  FMCSA Copilot - Ultra Creative 3D Admin CSS
+  Features: Animated Grid Background, Floating Orbs, Deep 3D Cards, Neon Glows.
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
+
+:root {
+    --bg-base: #030008;
+    --card-surface: rgba(15, 10, 25, 0.7);
+    --primary: #8b5cf6;
+    --primary-glow: rgba(139, 92, 246, 0.6);
+    --cyan: #06b6d4;
+    --cyan-glow: rgba(6, 182, 212, 0.6);
+    --pink: #ec4899;
+}
+
+body {
+    background-color: var(--bg-base) !important;
+    color: #e2e8f0 !important;
+    font-family: 'Space Grotesk', sans-serif !important;
+    overflow-x: hidden;
+}
+
+/* 3D Animated Grid Background */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 200vw; height: 200vh;
+    background-image: 
+        linear-gradient(rgba(6, 182, 212, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6, 182, 212, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
+    animation: gridMove 10s linear infinite;
+    z-index: -2;
+    pointer-events: none;
+}
+
+@keyframes gridMove {
+    0% { transform: perspective(500px) rotateX(60deg) translateY(0) translateZ(-200px); }
+    100% { transform: perspective(500px) rotateX(60deg) translateY(50px) translateZ(-200px); }
+}
+
+/* Floating Ambient Orbs */
+body::after {
+    content: "";
+    position: fixed;
+    top: -20%; left: -10%;
+    width: 60vw; height: 60vw;
+    background: radial-gradient(circle, var(--primary-glow) 0%, transparent 60%);
+    border-radius: 50%;
+    z-index: -1;
+    filter: blur(80px);
+    animation: orbFloat 15s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+@keyframes orbFloat {
+    0% { transform: translate(0, 0) scale(1); background: radial-gradient(circle, var(--primary-glow) 0%, transparent 60%); }
+    100% { transform: translate(20vw, 30vh) scale(1.2); background: radial-gradient(circle, var(--cyan-glow) 0%, transparent 60%); }
+}
+
+/* 3D Glassmorphic Cards */
+.card, .info-box, .small-box, .dashboard-item {
+    background: var(--card-surface) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 20px !important;
+    box-shadow: 
+        10px 15px 30px rgba(0, 0, 0, 0.8), 
+        inset -5px -5px 15px rgba(0, 0, 0, 0.5),
+        inset 5px 5px 15px rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    transform-style: preserve-3d;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Inner Glow Effect */
+.card::before, .info-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 50%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+    transform: skewX(-20deg);
+    transition: 0.5s;
+    pointer-events: none;
+}
+
+.card:hover::before, .info-box:hover::before {
+    left: 150%;
+}
+
+.card:hover, .info-box:hover, .small-box:hover {
+    transform: translateY(-10px) rotateX(5deg) rotateY(-5deg) translateZ(20px);
+    box-shadow: 
+        15px 25px 40px rgba(0, 0, 0, 0.9), 
+        0 0 20px var(--cyan-glow) !important;
+    border-color: var(--cyan) !important;
+}
+
+/* Sidebar & Header Styling */
+.main-sidebar, .main-header {
+    background: rgba(8, 5, 15, 0.85) !important;
+    backdrop-filter: blur(20px);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 5px 0 30px rgba(0,0,0,0.8);
+}
+
+.main-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    box-shadow: 0 5px 30px rgba(0,0,0,0.8);
+}
+
+/* Hyper-Tactile 3D Buttons */
+.btn {
+    border-radius: 12px !important;
+    border: none !important;
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 10px 20px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    background: #111 !important;
+    color: #fff !important;
+    box-shadow: 
+        6px 6px 12px rgba(0,0,0,0.8), 
+        -2px -2px 8px rgba(255,255,255,0.1),
+        inset 1px 1px 1px rgba(255,255,255,0.2) !important;
+    transition: all 0.2s ease !important;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 2px; left: 2px; bottom: 2px; right: 2px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+    z-index: -1;
+}
+
+.btn-primary { background: linear-gradient(135deg, var(--primary), #4c1d95) !important; }
+.btn-success { background: linear-gradient(135deg, #10b981, #047857) !important; }
+.btn-info { background: linear-gradient(135deg, var(--cyan), #0369a1) !important; }
+.btn-danger { background: linear-gradient(135deg, var(--pink), #be185d) !important; }
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        8px 12px 20px rgba(0,0,0,0.9),
+        0 0 15px var(--cyan-glow) !important;
+    color: #fff !important;
+}
+
+.btn:active {
+    transform: translateY(4px);
+    box-shadow: 
+        inset 6px 6px 12px rgba(0,0,0,0.8),
+        inset -2px -2px 6px rgba(255,255,255,0.1) !important;
+}
+
+/* Inputs & Forms - Terminal Vibe */
+.form-control, .select2-selection {
+    background: rgba(0, 0, 0, 0.5) !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    border-radius: 12px !important;
+    color: var(--cyan) !important;
+    font-family: 'JetBrains Mono', monospace;
+    box-shadow: inset 4px 4px 10px rgba(0,0,0,0.8), inset -1px -1px 3px rgba(255,255,255,0.05) !important;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.8), 0 0 15px var(--cyan-glow) !important;
+    border-color: var(--cyan) !important;
+}
+
+/* Glowing Typography */
+h1, h2, h3, h4, .brand-text {
+    font-weight: 700 !important;
+    background: linear-gradient(to right, #fff, var(--cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0px 5px 15px rgba(6, 182, 212, 0.3);
+}
+
+/* Sidebar Nav Highlights */
+.nav-sidebar .nav-link {
+    border-radius: 10px !important;
+    margin: 6px 10px !important;
+    transition: all 0.3s ease !important;
+    border: 1px solid transparent;
+}
+
+.nav-sidebar .nav-link:hover {
+    background: rgba(255, 255, 255, 0.03) !important;
+    transform: translateX(8px) scale(1.02);
+    box-shadow: -5px 0 15px var(--primary-glow);
+    border-color: rgba(255,255,255,0.1);
+}
+
+.nav-sidebar .nav-link.active {
+    background: linear-gradient(90deg, rgba(139, 92, 246, 0.2), transparent) !important;
+    box-shadow: inset 3px 3px 10px rgba(0,0,0,0.5), -5px 0 15px var(--cyan-glow) !important;
+    border-left: 4px solid var(--cyan);
+    color: #fff !important;
+}
+
+/* Tables */
+.table {
+    color: #e2e8f0 !important;
+}
+.table thead th {
+    border-bottom: 2px solid var(--primary) !important;
+    color: var(--cyan);
+    font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(255,255,255,0.015) !important;
+}
+.table-hover tbody tr:hover {
+    background: rgba(6, 182, 212, 0.1) !important;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    transform: scale(1.01) translateZ(10px);
+    transition: all 0.3s ease;
+    border-radius: 8px;
+}

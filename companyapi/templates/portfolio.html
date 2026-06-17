@@ -1,0 +1,1108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shiva | FMCSA AI Compliance Architect & Java Backend Developer</title>
+    <meta name="description"
+        content="Portfolio of Shiva, a Senior AI Engineer, Java Backend Developer, and SaaS Builder specializing in automated compliance pipelines, RAG systems, and agent networks.">
+
+    <!-- Google Fonts: Inter & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        background: '#03000a',
+                        surface: '#080512',
+                        surfaceHover: '#110c22',
+                        primary: '#3b82f6',
+                        secondary: '#8b5cf6',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/portfolio.css' %}">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="bg-background text-white antialiased selection:bg-purple-500/30 overflow-x-hidden relative">
+
+    <!-- Ambient Glow Backgrounds -->
+    <div class="glow-bg glow-blue top-[10%] left-[-10%]"></div>
+    <div class="glow-bg glow-purple top-[40%] right-[-10%]"></div>
+    <div class="glow-bg glow-pink bottom-[15%] left-[10%]"></div>
+    <div class="grid-bg"></div>
+
+    <!-- Navigation Header -->
+    <nav class="fixed top-0 w-full z-50 glass border-b border-white/5 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center space-x-3">
+                    <div
+                        class="p-2.5 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl shadow-[0_0_15px_rgba(139,92,246,0.3)]">
+                        <i data-lucide="shield-check" class="w-5 h-5 text-white"></i>
+                    </div>
+                    <span class="font-display font-black text-xl tracking-tight uppercase">FMCSA<span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500"> Copilot</span></span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+                    <a href="#about" class="hover:text-white transition-colors duration-200">About</a>
+                    <a href="#projects" class="hover:text-white transition-colors duration-200">Projects</a>
+                    <a href="#skills" class="hover:text-white transition-colors duration-200">Skills</a>
+                    <a href="#experience" class="hover:text-white transition-colors duration-200">Experience</a>
+                    <a href="#live-demo"
+                        class="hover:text-purple-400 text-blue-400 transition-colors duration-200 flex items-center space-x-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
+                        <span>Live Operations</span>
+                    </a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <div id="auth-status"
+                        class="text-xs font-mono hidden items-center space-x-2 bg-emerald-500/10 text-emerald-400 px-3 py-1.5 rounded-lg border border-emerald-500/20">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                        <span>JWT AUTHENTICATED</span>
+                    </div>
+                    <button id="demo-mode-btn"
+                        class="px-4 py-2 text-xs font-mono font-semibold rounded-lg bg-white/5 hover:bg-white/10 transition border border-white/10 flex items-center space-x-2 text-slate-300 hover:text-white">
+                        <i data-lucide="zap" class="w-3.5 h-3.5 text-yellow-400"></i>
+                        <span>ACTIVATE TOKEN</span>
+                    </button>
+                    <a href="/admin"
+                        class="px-4 py-2 text-xs font-mono font-semibold rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 transition shadow-lg shadow-purple-500/20 animate-pulse-glow">
+                        ADMIN LOGIN
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="about" class="relative min-h-screen pt-32 pb-20 flex items-center overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+                <!-- Left Column: Intro -->
+                <div class="lg:col-span-7 space-y-6 text-left fade-in">
+                    <div
+                        class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-purple-500/5 border border-purple-500/20 backdrop-blur-md">
+                        <span class="flex h-2 w-2 relative">
+                            <span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
+                        </span>
+                        <span class="text-[10px] font-mono text-purple-300 uppercase tracking-widest font-bold">Open to
+                            Architecture & Integration Roles</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-6xl font-display font-black tracking-tight leading-none text-white">
+                        FMCSA AI Compliance<br />
+                        <span class="text-gradient">Agentic Systems</span>
+                    </h1>
+
+                    <p class="text-md sm:text-lg text-slate-400 max-w-2xl font-light leading-relaxed">
+                        Hi, I'm <strong class="text-white font-semibold">Shiva</strong>, a Senior AI Engineer, Java
+                        Backend Developer, and SaaS Product Builder.
+                        I design and build production-grade AI agent networks, vector-indexed search pipelines,
+                        and compliance enforcement middleware that operate deterministically under heavy scale.
+                    </p>
+
+                    <div class="p-5 bg-white/5 border border-white/10 rounded-2xl flex items-start space-x-4 max-w-xl">
+                        <div class="p-2 bg-blue-500/10 rounded-lg text-blue-400 mt-1">
+                            <i data-lucide="bot" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-semibold text-slate-200">Featured Showcase: FMCSA Compliance Copilot
+                            </h4>
+                            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                                A multi-agent framework enforcing federal ELD rules. Leverages LangGraph loops, semantic
+                                RAG matching with Qdrant, and auto-corrections.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 pt-2">
+                        <a href="#live-demo"
+                            class="px-6 py-4 text-xs font-mono font-bold rounded-xl bg-white text-black hover:bg-slate-200 transition shadow-[0_0_30px_rgba(255,255,255,0.15)] flex items-center justify-center space-x-2">
+                            <i data-lucide="terminal" class="w-4 h-4"></i>
+                            <span>LAUNCH LIVE WORKSPACE</span>
+                        </a>
+                        <a href="#projects"
+                            class="px-6 py-4 text-xs font-mono font-bold rounded-xl bg-surface border border-white/5 hover:bg-surfaceHover transition flex items-center justify-center space-x-2">
+                            <i data-lucide="folder-code" class="w-4 h-4 text-purple-400"></i>
+                            <span>EXPLORE PROJECTS</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Column: Interactive Parallax 3D Mockup -->
+                <div class="lg:col-span-5 relative w-full flex justify-center perspective-1000">
+                    <div class="card-3d-wrap w-full max-w-md">
+                        <!-- Neon Ring Orbit -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-tr from-blue-500 to-purple-600 rounded-3xl opacity-10 blur-xl animate-pulse">
+                        </div>
+
+                        <!-- Premium Mockup Container -->
+                        <div
+                            class="card-3d bg-[#0d0a1b]/95 border border-white/10 p-6 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.6)] relative z-10 w-full animate-float">
+                            <div class="card-3d-content space-y-6">
+                                <!-- Top Bar controls -->
+                                <div class="flex items-center justify-between pb-4 border-b border-white/5">
+                                    <div class="flex space-x-1.5">
+                                        <div class="circle-btn circle-red"></div>
+                                        <div class="circle-btn circle-yellow"></div>
+                                        <div class="circle-btn circle-green"></div>
+                                    </div>
+                                    <span
+                                        class="text-[10px] font-mono text-slate-500 tracking-wider">SYSTEM_MONITOR.LOG</span>
+                                    <span
+                                        class="px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 text-[8px] font-mono border border-blue-500/20">CELERY
+                                        OK</span>
+                                </div>
+
+                                <!-- Agent Activity Simulation -->
+                                <div class="space-y-4 font-mono text-xs text-slate-400">
+                                    <div class="flex items-start space-x-2">
+                                        <span class="text-purple-400">&gt;</span>
+                                        <p><span class="text-blue-400">[Parser]</span> CSV loaded. Headers verified.</p>
+                                    </div>
+                                    <div class="flex items-start space-x-2">
+                                        <span class="text-purple-400">&gt;</span>
+                                        <p><span class="text-green-400">[Checksum]</span> Validating signature hashes...
+                                            <span class="text-green-400">OK</span>
+                                        </p>
+                                    </div>
+                                    <div class="flex items-start space-x-2">
+                                        <span class="text-purple-400">&gt;</span>
+                                        <p><span class="text-yellow-400">[RAG]</span> Querying Qdrant index... <span
+                                                class="text-slate-300">12 matches</span></p>
+                                    </div>
+                                    <div class="flex items-start space-x-2">
+                                        <span class="text-purple-400">&gt;</span>
+                                        <p><span class="text-purple-400">[Agent]</span> Initiating self-correction
+                                            verification...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-28 border-t border-white/5 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <h2 class="text-3xl sm:text-5xl font-display font-black tracking-tight mb-4 text-white">Featured
+                    FMCSA Projects</h2>
+                <p class="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto">Production-grade systems built around
+                    robust engineering principles and advanced algorithms.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 perspective-1000">
+
+                <!-- Project 1: Featured Project (FMCSA Copilot) -->
+                <div
+                    class="glass-card p-8 rounded-3xl flex flex-col justify-between border-glow-purple md:col-span-2 card-3d card-3d-tilt">
+                    <div class="card-3d-content">
+                        <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+                            <div class="flex items-center space-x-3">
+                                <div class="p-3 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl">
+                                    <i data-lucide="bot" class="w-6 h-6 text-white"></i>
+                                </div>
+                                <div>
+                                    <span
+                                        class="px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 text-[10px] font-mono border border-blue-500/20 font-bold uppercase tracking-wider">FEATURED
+                                        PRODUCT</span>
+                                    <h3 class="text-2xl font-display font-extrabold mt-1 text-white">FMCSA ELD
+                                        Compliance Copilot</h3>
+                                </div>
+                            </div>
+                            <div class="flex gap-2">
+                                <span
+                                    class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-slate-300 font-mono text-xs">Django</span>
+                                <span
+                                    class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-slate-300 font-mono text-xs">LangGraph</span>
+                                <span
+                                    class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-slate-300 font-mono text-xs">Qdrant</span>
+                                <span
+                                    class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-slate-300 font-mono text-xs">Gemini
+                                    AI</span>
+                            </div>
+                        </div>
+
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            An agentic AI compliance audit environment that automatically validates commercial motor
+                            vehicle driver log records.
+                            Features high-performance CSV parsing, a custom cryptographic checksum checker to identify
+                            modifications,
+                            and a dual self-correcting agent loop. Uses ReportLab for dynamic PDF reporting and vector
+                            similarity queries
+                            on federal regulation guidelines.
+                        </p>
+
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+                            <div class="p-4 bg-white/5 rounded-2xl border border-white/5 text-center">
+                                <div class="text-xl font-bold text-white">50+</div>
+                                <div class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Rules
+                                    Checked</div>
+                            </div>
+                            <div class="p-4 bg-white/5 rounded-2xl border border-white/5 text-center">
+                                <div class="text-xl font-bold text-emerald-400">100%</div>
+                                <div class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Auto
+                                    Correction</div>
+                            </div>
+                            <div class="p-4 bg-white/5 rounded-2xl border border-white/5 text-center">
+                                <div class="text-xl font-bold text-purple-400">8</div>
+                                <div class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">
+                                    Specialist Agents</div>
+                            </div>
+                            <div class="p-4 bg-white/5 rounded-2xl border border-white/5 text-center">
+                                <div class="text-xl font-bold text-blue-400">&lt;2s</div>
+                                <div class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">
+                                    Processing Speed</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between border-t border-white/5 pt-6">
+                        <span class="text-xs font-mono text-slate-500">Live deployment connected to local Celery
+                            workers</span>
+                        <a href="#live-demo"
+                            class="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-mono text-xs font-bold transition shadow-lg shadow-purple-600/20 flex items-center space-x-2">
+                            <span>Interact Live</span>
+                            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 2: Multi-Agent Auditor -->
+                <div
+                    class="glass-card p-6 rounded-2xl border border-white/5 hover:border-blue-500/20 flex flex-col justify-between card-3d card-3d-tilt">
+                    <div class="card-3d-content">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="p-2 bg-blue-500/10 text-blue-400 rounded-lg">
+                                <i data-lucide="workflow" class="w-5 h-5"></i>
+                            </div>
+                            <span class="text-[10px] font-mono text-blue-400 uppercase font-bold">Python /
+                                LangGraph</span>
+                        </div>
+                        <h3 class="text-lg font-bold mb-2">Autonomous Multi-Agent Auditor</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-6">
+                            Architected graph topologies where distinct LLM agents act as auditor, investigator, and
+                            corrector.
+                            Achieved precise remediation results using system feedback loops and automated validation.
+                        </p>
+                    </div>
+                    <div
+                        class="flex items-center space-x-2 text-xs font-mono text-slate-500 border-t border-white/5 pt-4">
+                        <i data-lucide="git-branch" class="w-3.5 h-3.5"></i>
+                        <span>Stateful agent orchestration</span>
+                    </div>
+                </div>
+
+                <!-- Project 3: Regulatory RAG Engine -->
+                <div
+                    class="glass-card p-6 rounded-2xl border border-white/5 hover:border-purple-500/20 flex flex-col justify-between card-3d card-3d-tilt">
+                    <div class="card-3d-content">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="p-2 bg-purple-500/10 text-purple-400 rounded-lg">
+                                <i data-lucide="database" class="w-5 h-5"></i>
+                            </div>
+                            <span class="text-[10px] font-mono text-purple-400 uppercase font-bold">Qdrant /
+                                FastEmbed</span>
+                        </div>
+                        <h3 class="text-lg font-bold mb-2">Vector Regulatory RAG</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-6">
+                            Designed vector search indexes mapping federal motor carrier guidelines. Implemented custom
+                            chunking strategies to preserve context and cross-reference citations in real-time queries.
+                        </p>
+                    </div>
+                    <div
+                        class="flex items-center space-x-2 text-xs font-mono text-slate-500 border-t border-white/5 pt-4">
+                        <i data-lucide="shield-alert" class="w-3.5 h-3.5"></i>
+                        <span>98% accuracy compliance retrieval</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 border-t border-white/5 bg-surface/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-5xl font-display font-black tracking-tight mb-4 text-white">FMCSA Technical
+                    Expertise</h2>
+                <p class="text-slate-400 text-sm max-w-2xl mx-auto">Core methodologies, frameworks, and architectural
+                    proficiencies.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- AI & Agent Architectures -->
+                <div
+                    class="glass-card p-6 rounded-2xl border border-white/5 hover:border-blue-500/30 transition-all duration-300">
+                    <i data-lucide="bot" class="w-8 h-8 text-blue-400 mb-4"></i>
+                    <h3 class="text-lg font-bold mb-3 text-white">FMCSA AI & Agents</h3>
+                    <ul class="space-y-2 text-xs text-slate-400 font-mono">
+                        <li class="flex items-center space-x-2"><span
+                                class="w-1.5 h-1.5 rounded-full bg-blue-400"></span><span>LangGraph Loops</span></li>
+                        <li class="flex items-center space-x-2"><span
+                                class="w-1.5 h-1.5 rounded-full bg-blue-400"></span><span>Qdrant Vector DB</span></li>
+                        <li class="flex items-center space-x-2"><span
+                                class="w-1.5 h-1.5 rounded-full bg-blue-400"></span><span>LLM Contexts</span></li>
+                        <li class="flex items-center space-x-2"><span
+                                class="w-1.5 h-1.5 rounded-full bg-blue-400"></span><span>Asynchronous RAG</span></li>
+                    </ul>
+                </div>
+
+                <!-- Backend Engineering -->
+                <div
+                    class="glass-card p-6 rounded-2xl border border-white/5 hover:border-purple-500/30 transition-all duration-300">
+                    <i data-lucide="server" class="w-8 h-8 text-purple-400 mb-4"></i>
+                    <h3 class="text-lg font-bold mb-3 text-white">FMCSA Backend Systems</h3>
+                    <ul class="space-y-2 text-xs text-slate-400 font-mono">
+                        <li class="flex items-center space-x-2"><span
+                                class="w-1.5 h-1.5 rounded-full bg-purple-400"></span><span>Django / DRF</span></li>
+                        <li class="flex items-center space-x-2"><span
+                                class="w-1.5 h-1.5 rounded-full bg-purple-400"></span><span>MySQL Schema DB</span></li>
+                        <li class="flex items-center space-x-2"><span
+                                class="w-1.5 h-1.5 rounded-full bg-purple-400"></span><span>Celery &amp; Redis
+                                Queues</span></li>
+                        <li class="flex items-center space-x-2"><span
+                                class="w-1.5 h-1.5 rounded-full bg-purple-400"></span><span>Java API Services</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Frontend Architecture -->
+                <div
+                    class="glass-card p-6 rounded-2xl border border-white/5 hover:border-pink-500/30 transition-all duration-300">
+                    <i data-lucide="layout" class="w-8 h-8 text-pink-400 mb-4"></i>
+                    <h3 class="text-lg font-bold mb-3 text-white">FMCSA Frontend Visuals</h3>
+                    <ul class="space-y-2 text-xs text-slate-400 font-mono">
+                        <li class="flex items-center space-x-2"><span
+                                class="w-1.5 h-1.5 rounded-full bg-pink-400"></span><span>Tailwind Visuals</span></li>
+                        <li class="flex items-center space-x-2"><span
+                                class="w-1.5 h-1.5 rounded-full bg-pink-400"></span><span>ES6+ Interactive UI</span>
+                        </li>
+                        <li class="flex items-center space-x-2"><span
+                                class="w-1.5 h-1.5 rounded-full bg-pink-400"></span><span>Glassmorphic Layouts</span>
+                        </li>
+                        <li class="flex items-center space-x-2"><span
+                                class="w-1.5 h-1.5 rounded-full bg-pink-400"></span><span>Responsive Grids</span></li>
+                    </ul>
+                </div>
+
+                <!-- Infrastructure & Ops -->
+                <div
+                    class="glass-card p-6 rounded-2xl border border-white/5 hover:border-cyan-500/30 transition-all duration-300">
+                    <i data-lucide="cpu" class="w-8 h-8 text-cyan-400 mb-4"></i>
+                    <h3 class="text-lg font-bold mb-3 text-white">FMCSA Ops & Scalability</h3>
+                    <ul class="space-y-2 text-xs text-slate-400 font-mono">
+                        <li class="flex items-center space-x-2"><span
+                                class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span><span>Docker Containers</span></li>
+                        <li class="flex items-center space-x-2"><span
+                                class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span><span>Secure JWT Access</span></li>
+                        <li class="flex items-center space-x-2"><span
+                                class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span><span>GitHub Actions</span></li>
+                        <li class="flex items-center space-x-2"><span
+                                class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span><span>System Profiling</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Timeline Section -->
+    <section id="experience" class="py-24 border-t border-white/5 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <h2 class="text-3xl sm:text-5xl font-display font-black tracking-tight mb-4 text-white">FMCSA
+                    Professional History</h2>
+                <p class="text-slate-400 text-sm max-w-2xl mx-auto">Career milestones as a systems engineer designing
+                    mission-critical automated pipelines.</p>
+            </div>
+
+            <div class="timeline">
+
+                <!-- Item 1: Left -->
+                <div class="timeline-item timeline-item-left">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <span
+                            class="text-xs font-mono font-bold text-purple-400 bg-purple-500/10 px-2.5 py-1 rounded-md border border-purple-500/20 font-bold">2024
+                            - PRESENT</span>
+                        <h3 class="text-lg font-bold text-white mt-3">Senior FMCSA AI & Systems Architect</h3>
+                        <h4 class="text-xs text-slate-400 font-semibold mb-3">Enterprise Logistics Tech</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed font-mono">
+                            Pioneered agentic compliance validation platforms processing high-consequence HOS records.
+                            Deployed multi-agent loops replacing manual operator audits, resulting in 100% test scenario
+                            accuracy
+                            and eliminating regulatory exposure.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Item 2: Right -->
+                <div class="timeline-item timeline-item-right">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <span
+                            class="text-xs font-mono font-bold text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-md border border-blue-500/20 font-bold">2022
+                            - 2024</span>
+                        <h3 class="text-lg font-bold text-white mt-3">Lead FMCSA Backend Developer</h3>
+                        <h4 class="text-xs text-slate-400 font-semibold mb-3">SaaS Automation Inc.</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed font-mono">
+                            Designed async job routing mechanisms utilizing Celery, Redis, and MySQL clusters.
+                            Reduced task queue latency by 40%. Implemented fine-grained JWT role access permissions.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Item 3: Left -->
+                <div class="timeline-item timeline-item-left">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <span
+                            class="text-xs font-mono font-bold text-pink-400 bg-pink-500/10 px-2.5 py-1 rounded-md border border-pink-500/20 font-bold">2020
+                            - 2022</span>
+                        <h3 class="text-lg font-bold text-white mt-3">Full-Stack FMCSA Software Engineer</h3>
+                        <h4 class="text-xs text-slate-400 font-semibold mb-3">Digital Audit Corp</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed font-mono">
+                            Built robust RESTful interfaces connected to Python processing kernels. Developed dynamic
+                            frontends using Tailwind systems. Focused on highly responsive dashboard displays.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Architecture Diagram -->
+    <section id="architecture" class="py-24 border-t border-white/5 bg-surface/30">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl sm:text-4xl font-display font-black tracking-tight mb-4 text-white">FMCSA System
+                Architecture
+                Flow</h2>
+            <p class="text-slate-400 text-sm mb-16">The modular sequential auditing process of the FMCSA Compliance
+                Copilot pipeline.</p>
+
+            <div class="bg-surface/50 p-8 rounded-3xl border border-white/5 backdrop-blur-md">
+                <div class="flex flex-col items-center space-y-6">
+
+                    <div
+                        class="w-full max-w-sm glass-card py-3.5 px-6 rounded-xl font-mono text-xs workflow-arrow border-blue-500/30 text-blue-400 shadow-md">
+                        1. Raw CSV Log Upload
+                    </div>
+                    <div
+                        class="w-full max-w-sm glass-card py-3.5 px-6 rounded-xl font-mono text-xs workflow-arrow border-white/5">
+                        2. Deterministic Telemetry Parser
+                    </div>
+                    <div
+                        class="w-full max-w-sm glass-card py-3.5 px-6 rounded-xl font-mono text-xs workflow-arrow border-white/5">
+                        3. FMCSA Checksum Validation
+                    </div>
+                    <div
+                        class="w-full max-w-sm glass-card py-3.5 px-6 rounded-xl font-mono text-xs workflow-arrow border-white/5">
+                        4. Diagnostic &amp; Malfunction Flagging
+                    </div>
+                    <div
+                        class="w-full max-w-sm glass-card py-3.5 px-6 rounded-xl font-mono text-xs workflow-arrow border-white/5">
+                        5. Autonomous Root-Cause Investigator
+                    </div>
+                    <div
+                        class="w-full max-w-sm glass-card py-3.5 px-6 rounded-xl font-mono text-xs workflow-arrow border-purple-500/30 text-purple-400 shadow-md">
+                        6. Qdrant Regulation Semantic Search
+                    </div>
+                    <div
+                        class="w-full max-w-sm glass-card py-3.5 px-6 rounded-xl font-mono text-xs workflow-arrow border-indigo-500/30 text-indigo-400 shadow-md">
+                        7. LangGraph Self-Correction &amp; Verification
+                    </div>
+                    <div
+                        class="w-full max-w-sm glass-card py-3.5 px-6 rounded-xl font-mono text-xs border-emerald-500/30 text-emerald-400 shadow-md">
+                        8. Executive PDF Report Compilation
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Metrics Section -->
+    <section class="py-16 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8 text-center divide-x divide-white/5">
+                <div>
+                    <div class="text-3xl font-display font-extrabold text-white mb-1">50+</div>
+                    <div class="text-[10px] text-slate-500 uppercase tracking-widest font-semibold font-mono">
+                        Regulations Evaluated</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-display font-extrabold text-white mb-1">8</div>
+                    <div class="text-[10px] text-slate-500 uppercase tracking-widest font-semibold font-mono">
+                        Micro-Agents</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-display font-extrabold text-white mb-1">100%</div>
+                    <div class="text-[10px] text-slate-500 uppercase tracking-widest font-semibold font-mono">Format
+                        Verification</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-display font-extrabold text-white mb-1">Part 395</div>
+                    <div class="text-[10px] text-slate-500 uppercase tracking-widest font-semibold font-mono">Hours of
+                        Service Rules</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-display font-extrabold text-blue-400 mb-1" id="metric-uploaded-files">0
+                    </div>
+                    <div class="text-[10px] text-slate-500 uppercase tracking-widest font-semibold font-mono">Audited
+                        Log Runs</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Demo / Auditing Workspace -->
+    <section id="live-demo" class="py-24 border-t border-white/5 bg-gradient-to-b from-background to-[#04010d]">
+        <div class="w-full max-w-[96%] mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-5xl font-display font-black tracking-tight mb-4 text-white">FMCSA
+                    Auditing Cockpit</h2>
+                <p class="text-slate-400 text-sm max-w-2xl mx-auto">Interact with the real API endpoints running on
+                    Django. Upload a CSV logs file to run the audit loops.</p>
+            </div>
+
+            <!-- Premium Workspace Container -->
+            <div
+                class="glass rounded-3xl overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.8)] border border-white/10 flex flex-col md:flex-row min-h-[650px] relative">
+
+                <!-- Workspace Sidebar -->
+                <div class="w-full md:w-64 bg-[#090515]/90 border-r border-white/5 p-5 flex flex-col justify-between">
+                    <div>
+                        <div class="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest mb-4 px-3">
+                            WORKSPACE MODULES</div>
+                        <nav class="space-y-1.5">
+                            <button onclick="switchAppTab('tab-upload')" id="nav-upload"
+                                class="app-nav-btn w-full flex items-center space-x-3 px-4 py-3 text-xs font-mono font-semibold rounded-xl bg-white/5 text-white border-l-2 border-purple-500">
+                                <i data-lucide="upload-cloud" class="w-4 h-4 text-blue-400"></i>
+                                <span>1. Audit Console</span>
+                            </button>
+                            <button onclick="switchAppTab('tab-dashboard')" id="nav-dashboard"
+                                class="app-nav-btn w-full flex items-center space-x-3 px-4 py-3 text-xs font-mono font-semibold rounded-xl text-slate-400 hover:text-white">
+                                <i data-lucide="layout-dashboard" class="w-4 h-4 text-emerald-400"></i>
+                                <span>2. Metric Analytics</span>
+                            </button>
+                            <button onclick="switchAppTab('tab-chat')" id="nav-chat"
+                                class="app-nav-btn w-full flex items-center space-x-3 px-4 py-3 text-xs font-mono font-semibold rounded-xl text-slate-400 hover:text-white">
+                                <i data-lucide="message-square" class="w-4 h-4 text-purple-400"></i>
+                                <span>3. AI Copilot Chat</span>
+                            </button>
+                            <button onclick="switchAppTab('tab-reports')" id="nav-reports"
+                                class="app-nav-btn w-full flex items-center space-x-3 px-4 py-3 text-xs font-mono font-semibold rounded-xl text-slate-400 hover:text-white">
+                                <i data-lucide="file-down" class="w-4 h-4 text-pink-400"></i>
+                                <span>4. PDF Reports</span>
+                            </button>
+                        </nav>
+                    </div>
+
+                    <div class="pt-6 border-t border-white/5 mt-6">
+                        <div class="p-3 bg-white/5 rounded-xl border border-white/5 text-center">
+                            <span class="text-[9px] font-mono text-slate-500 block">SYSTEM STATUS</span>
+                            <span
+                                class="text-xs font-mono font-bold text-emerald-400 block mt-1 flex items-center justify-center gap-1.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                                ONLINE
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Workspace Main Editor Panel -->
+                <div class="flex-1 bg-black/40 relative p-6 sm:p-8 overflow-y-auto">
+
+                    <!-- Overlay if not authenticated -->
+                    <div id="auth-overlay"
+                        class="absolute inset-0 bg-background/90 backdrop-blur-md z-20 flex flex-col justify-center items-center p-6 text-center">
+                        <div
+                            class="p-4 bg-purple-500/10 rounded-full border border-purple-500/20 text-purple-400 mb-4 animate-pulse">
+                            <i data-lucide="lock" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-lg font-display font-extrabold mb-1">Workspace Authentication Required</h3>
+                        <p class="text-xs text-slate-400 mb-6 max-w-sm leading-relaxed">Activate token authentication to
+                            fetch JWT credentials and connect to the local Django microservice layer.</p>
+                        <button onclick="document.getElementById('demo-mode-btn').click()"
+                            class="px-5 py-3 text-xs font-mono font-bold rounded-xl bg-white text-black hover:bg-slate-200 transition shadow-lg shadow-white/10 flex items-center space-x-2">
+                            <i data-lucide="zap" class="w-4 h-4 text-yellow-400"></i>
+                            <span>ACTIVATE CREDENTIALS</span>
+                        </button>
+                    </div>
+
+                    <!-- App Tabs Content -->
+
+                    <!-- Tab: Upload & Audit -->
+                    <div id="tab-upload" class="app-tab-content block h-full flex flex-col">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-base font-display font-bold text-white flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                                Log Auditor Terminal
+                            </h3>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 flex-1 min-h-0">
+                            <!-- Left Column: Controls & Console Output -->
+                            <div class="lg:col-span-5 flex flex-col space-y-6 overflow-y-auto pr-2 pb-10">
+
+                                <div class="grid grid-cols-1 gap-4">
+                                    <!-- Upload form -->
+                                    <div>
+                                        <form id="demoUploadForm" class="space-y-4">
+                                            <div class="border border-dashed border-white/10 hover:border-purple-500/50 rounded-2xl p-6 text-center cursor-pointer transition-all duration-300 bg-white/5 hover:bg-white/10 flex flex-col items-center justify-center min-h-[140px]"
+                                                onclick="document.getElementById('demoFileInput').click()">
+                                                <input type="file" id="demoFileInput" accept=".csv" class="hidden">
+                                                <div
+                                                    class="p-3 bg-white/5 rounded-full text-slate-400 mb-2 border border-white/10">
+                                                    <i data-lucide="file-text" class="w-6 h-6"></i>
+                                                </div>
+                                                <div class="text-xs font-mono text-slate-300" id="demoDropText">SELECT
+                                                    DRIVER CSV LOG</div>
+                                                <div class="text-[9px] font-mono text-slate-500 mt-1">FMCSA ELD format
+                                                    compliance (CSV)</div>
+                                            </div>
+                                            <button type="submit"
+                                                class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white text-xs font-mono font-bold rounded-xl transition shadow-lg shadow-purple-600/10 flex justify-center items-center">
+                                                <i data-lucide="play" class="w-4 h-4 mr-2"></i> EXECUTE COMPLIANCE AUDIT
+                                            </button>
+                                        </form>
+                                    </div>
+
+                                    <!-- Console Log Output -->
+                                    <div class="bg-[#090515] rounded-xl border border-white/10 p-4 flex flex-col font-mono text-[11px] text-green-400 overflow-y-auto min-h-[180px] max-h-[260px] terminal-glow"
+                                        id="audit-console">
+                                        <div class="text-slate-500">// Terminal system initialized. Waiting for
+                                            execution...</div>
+                                    </div>
+                                </div>
+
+                                <!-- Audit Results Panel (Auto revealed) -->
+                                <div id="audit-results" class="hidden flex flex-col space-y-6">
+
+                                    <!-- Stat Comparison Row -->
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        <!-- Original Audit Results -->
+                                        <div
+                                            class="bg-white/5 rounded-2xl border border-white/5 p-4 flex items-center justify-between">
+                                            <div>
+                                                <span class="text-[9px] font-mono text-slate-500 block">INITIAL
+                                                    AUDIT</span>
+                                                <span class="text-base font-bold tracking-tight block mt-1"
+                                                    id="res-orig-status">FAIL</span>
+                                                <span class="text-[10px] font-mono text-slate-400 block mt-1">Found
+                                                    Errors: <span id="res-orig-errors"
+                                                        class="text-red-400 font-bold">0</span></span>
+                                            </div>
+                                            <div class="text-right">
+                                                <span class="text-[9px] font-mono text-slate-500 block">SCORE</span>
+                                                <span class="text-2xl font-display font-black text-white"
+                                                    id="res-orig-score">100</span>
+                                            </div>
+                                        </div>
+                                        <!-- Post-Remediation Verdict -->
+                                        <div class="bg-white/5 rounded-2xl border border-white/5 p-4 flex items-center justify-between"
+                                            id="res-corr-card">
+                                            <div>
+                                                <span class="text-[9px] font-mono text-slate-500 block">FINAL
+                                                    VERDICT</span>
+                                                <span class="text-base font-bold tracking-tight block mt-1"
+                                                    id="res-final-verdict">PENDING</span>
+                                                <span class="text-[10px] font-mono text-slate-400 block mt-1">Errors
+                                                    Remaining: <span id="res-corr-errors"
+                                                        class="font-bold">-</span></span>
+                                            </div>
+                                            <div class="text-right">
+                                                <span class="text-[9px] font-mono text-slate-500 block">RE-VAL
+                                                    SCORE</span>
+                                                <span class="text-2xl font-display font-black text-white"
+                                                    id="res-corr-score">-</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Downloads Bar -->
+                                    <div class="flex flex-wrap gap-2.5" id="res-downloads">
+                                        <!-- Built dynamically in JS -->
+                                    </div>
+
+                                    <!-- Executive Summary: Findings -->
+                                    <div class="space-y-4">
+                                        <h4 class="text-xs font-mono font-bold text-slate-300 flex items-center">
+                                            <i data-lucide="alert-triangle" class="w-3.5 h-3.5 mr-2 text-yellow-400"></i>
+                                            EXECUTIVE SUMMARY
+                                        </h4>
+                                        
+                                        <!-- Summary Counts -->
+                                        <div class="flex gap-4 mb-4">
+                                            <div onclick="document.getElementById('res-full-report').classList.remove('hidden'); document.getElementById('res-invest-body').scrollIntoView({behavior: 'smooth', block: 'center'})" class="cursor-pointer hover:bg-white/10 transition flex-1 bg-white/5 border border-white/10 rounded-xl p-3 text-center">
+                                                <div class="text-[10px] font-mono text-slate-500 mb-1">CRITICAL</div>
+                                                <div class="text-2xl font-bold text-red-400" id="count-critical">0</div>
+                                            </div>
+                                            <div onclick="document.getElementById('res-full-report').classList.remove('hidden'); document.getElementById('res-invest-body').scrollIntoView({behavior: 'smooth', block: 'center'})" class="cursor-pointer hover:bg-white/10 transition flex-1 bg-white/5 border border-white/10 rounded-xl p-3 text-center">
+                                                <div class="text-[10px] font-mono text-slate-500 mb-1">WARNINGS</div>
+                                                <div class="text-2xl font-bold text-yellow-400" id="count-warning">0</div>
+                                            </div>
+                                            <div onclick="document.getElementById('res-correction-section').classList.remove('hidden'); document.getElementById('res-correction-section').scrollIntoView({behavior: 'smooth', block: 'center'})" class="cursor-pointer hover:bg-white/10 transition flex-1 bg-white/5 border border-white/10 rounded-xl p-3 text-center">
+                                                <div class="text-[10px] font-mono text-slate-500 mb-1">AUTO-FIXED</div>
+                                                <div class="text-2xl font-bold text-emerald-400" id="count-autofixed">0</div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Top 3 -->
+                                        <div id="res-top3-section" class="space-y-2">
+                                            <h5 class="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest mb-2" id="top3-title">Top Critical Findings</h5>
+                                            <div id="res-top3-body" class="space-y-2"></div>
+                                        </div>
+
+                                        <button onclick="document.getElementById('res-full-report').classList.toggle('hidden')" class="w-full mt-4 px-3 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-[10px] font-mono font-bold text-slate-400 hover:text-white transition flex items-center justify-center gap-2">
+                                            <i data-lucide="file-search" class="w-3 h-3"></i>
+                                            View Full Investigation Report
+                                        </button>
+
+                                        <!-- Full Report -->
+                                        <div id="res-full-report" class="hidden space-y-4 mt-4 pt-4 border-t border-white/10">
+                                            <div id="res-ai-issues-section" class="hidden space-y-2">
+                                                <h5 class="text-[10px] font-mono font-bold text-purple-400 uppercase tracking-widest mb-2 flex items-center">
+                                                    <i data-lucide="cpu" class="w-3 h-3 mr-1.5"></i>
+                                                    AI Service Issues
+                                                </h5>
+                                                <div id="res-ai-issues-body" class="space-y-2"></div>
+                                            </div>
+
+                                            <div class="space-y-2">
+                                                <h5 class="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest mb-2">Detailed Validation Errors</h5>
+                                                <div id="res-invest-body" class="space-y-3"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Corrections Made -->
+                                    <div id="res-correction-section" class="hidden space-y-3">
+                                        <h4 class="text-xs font-mono font-bold text-slate-300 flex items-center">
+                                            <i data-lucide="wrench" class="w-3.5 h-3.5 mr-2 text-emerald-400"></i>
+                                            APPLIED CHANGESET RECONCILIATIONS
+                                        </h4>
+                                        <div id="res-correction-body" class="space-y-2"></div>
+                                    </div>
+
+                                    <!-- Dev Diagnostics -->
+                                    <details id="res-dev-diag-section"
+                                        class="hidden bg-black/60 border border-white/10 rounded-xl overflow-hidden mt-4">
+                                        <summary
+                                            class="px-4 py-3 text-xs font-mono font-bold text-slate-400 cursor-pointer hover:bg-white/5 flex items-center">
+                                            <i data-lucide="terminal" class="w-3.5 h-3.5 mr-2"></i>
+                                            SYSTEM_DIAGNOSTICS.JSON
+                                        </summary>
+                                        <div class="p-4 border-t border-white/10 font-mono text-[10px] text-slate-400 space-y-2 bg-black/90"
+                                            id="res-dev-diag-body">
+                                        </div>
+                                    </details>
+                                </div>
+                            </div>
+
+                            <!-- Right Column: CSV Live Preview -->
+                            <div id="csv-preview-column"
+                                class="lg:col-span-7 flex flex-col bg-[#05020c] rounded-2xl border border-white/10 overflow-hidden h-[500px]">
+                                <div
+                                    class="px-4 py-3 border-b border-white/10 bg-[#090515]/90 flex justify-between items-center">
+                                    <h4 class="text-xs font-mono font-semibold text-slate-200 flex items-center">
+                                        <i data-lucide="cpu" class="w-4 h-4 mr-2 text-cyan-400"></i>
+                                        FMCSA 3D PROCESSING ENGINE
+                                    </h4>
+                                    <div class="flex items-center space-x-2">
+                                        <button id="btn-view-3d" onclick="switchPreviewMode('3d')"
+                                            class="px-2.5 py-1 rounded text-[9px] font-mono font-bold workspace-tab-active border uppercase transition">
+                                            3D Pipeline
+                                        </button>
+                                        <button id="btn-view-raw" onclick="switchPreviewMode('raw')"
+                                            class="px-2.5 py-1 rounded text-[9px] font-mono font-bold workspace-tab-inactive border uppercase transition">
+                                            CSV Output
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- FMCSA Pipeline Stage Indicator Bar -->
+                                <div id="fmcsa-stage-bar"
+                                    class="flex items-stretch bg-black/60 border-b border-white/5 overflow-x-auto">
+                                    <div data-stage="parsing"
+                                        class="stage-pending flex-1 flex flex-col items-center justify-center py-2 px-1 border-r border-white/5 min-w-[80px] transition-all duration-500">
+                                        <span
+                                            class="text-[8px] font-mono font-bold uppercase tracking-widest stage-label">CSV
+                                            Upload</span>
+                                        <span class="text-[7px] font-mono text-slate-600 mt-0.5 stage-sub">→
+                                            Parser</span>
+                                    </div>
+                                    <div data-stage="validating"
+                                        class="stage-pending flex-1 flex flex-col items-center justify-center py-2 px-1 border-r border-white/5 min-w-[80px] transition-all duration-500">
+                                        <span
+                                            class="text-[8px] font-mono font-bold uppercase tracking-widest stage-label">Validation</span>
+                                        <span class="text-[7px] font-mono text-slate-600 mt-0.5 stage-sub">→ FMCSA
+                                            Rules</span>
+                                    </div>
+                                    <div data-stage="investigating"
+                                        class="stage-pending flex-1 flex flex-col items-center justify-center py-2 px-1 border-r border-white/5 min-w-[80px] transition-all duration-500">
+                                        <span
+                                            class="text-[8px] font-mono font-bold uppercase tracking-widest stage-label">Investigation</span>
+                                        <span class="text-[7px] font-mono text-slate-600 mt-0.5 stage-sub">→ AI
+                                            Neural</span>
+                                    </div>
+                                    <div data-stage="correcting"
+                                        class="stage-pending flex-1 flex flex-col items-center justify-center py-2 px-1 border-r border-white/5 min-w-[80px] transition-all duration-500">
+                                        <span
+                                            class="text-[8px] font-mono font-bold uppercase tracking-widest stage-label">Auto-Fix</span>
+                                        <span class="text-[7px] font-mono text-slate-600 mt-0.5 stage-sub">→
+                                            Correction</span>
+                                    </div>
+                                    <div data-stage="recalculating"
+                                        class="stage-pending flex-1 flex flex-col items-center justify-center py-2 px-1 border-r border-white/5 min-w-[80px] transition-all duration-500">
+                                        <span
+                                            class="text-[8px] font-mono font-bold uppercase tracking-widest stage-label">Checksum</span>
+                                        <span class="text-[7px] font-mono text-slate-600 mt-0.5 stage-sub">→
+                                            Signature</span>
+                                    </div>
+                                    <div data-stage="complete"
+                                        class="stage-pending flex-1 flex flex-col items-center justify-center py-2 px-1 min-w-[80px] transition-all duration-500">
+                                        <span
+                                            class="text-[8px] font-mono font-bold uppercase tracking-widest stage-label">Revalidated</span>
+                                        <span class="text-[7px] font-mono text-slate-600 mt-0.5 stage-sub">✓
+                                            Compliant</span>
+                                    </div>
+                                </div>
+                                <div class="flex-1 relative flex flex-col min-h-0 bg-[#030007]">
+                                    <!-- 3D Compliance Inspector View -->
+                                    <div id="csv-3d-view" class="absolute inset-0 flex flex-col z-10">
+                                        <div id="csv-3d-canvas-container" class="flex-1 relative w-full h-full">
+                                            <div id="csv-3d-root" class="w-full h-full absolute inset-0"></div>
+                                            <!-- Overlay Hologram Indicators -->
+                                            <div
+                                                class="absolute top-4 left-4 font-mono text-[9px] text-slate-400 bg-black/75 border border-white/10 p-3 rounded-lg pointer-events-none space-y-1.5 z-20 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+                                                <div class="flex items-center gap-1.5">
+                                                    <span id="ins-status-dot"
+                                                        class="w-2 h-2 rounded-full bg-cyanGlow animate-pulse"></span>
+                                                    <span id="ins-status-text"
+                                                        class="text-white font-bold uppercase">Awaiting Audit</span>
+                                                </div>
+                                                <div class="border-t border-white/5 my-1"></div>
+                                                <div>Total Records: <span id="ins-records-count"
+                                                        class="text-cyanGlow">--</span></div>
+                                                <div>Violations: <span id="ins-anomalies-count"
+                                                        class="text-red-400 font-bold">--</span></div>
+                                                <div>Auto-repaired: <span id="ins-repaired-count"
+                                                        class="text-emerald-400 font-bold">--</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Raw Table View -->
+                                    <div id="csv-raw-view" class="absolute inset-0 overflow-auto hidden z-0">
+                                        <table class="w-full text-[11px] font-mono text-slate-400 border-collapse"
+                                            id="csv-preview-table">
+                                            <tbody id="csv-preview-content">
+                                                <!-- Built dynamically in JS -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab: Dashboard -->
+                    <div id="tab-dashboard" class="app-tab-content hidden h-full">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-base font-display font-bold text-white flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                Compliance Analytics Dashboard
+                            </h3>
+                            <button id="refresh-dash-btn"
+                                class="p-2 bg-white/5 rounded-xl border border-white/5 text-slate-400 hover:text-white transition"><i
+                                    data-lucide="refresh-cw" class="w-4 h-4"></i></button>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 mb-8">
+                            <div class="bg-white/5 border border-white/5 p-5 rounded-2xl">
+                                <span class="text-[10px] font-mono text-slate-500 block">AVERAGE SYSTEM SCORE</span>
+                                <span class="text-3xl font-display font-black text-white block mt-1"
+                                    id="dash-avg-score">0.0</span>
+                            </div>
+                            <div class="bg-white/5 border border-white/5 p-5 rounded-2xl">
+                                <span class="text-[10px] font-mono text-slate-500 block">VIOLATIONS IDENTIFIED</span>
+                                <span class="text-3xl font-display font-black text-red-400 block mt-1"
+                                    id="dash-violations">0</span>
+                            </div>
+                        </div>
+
+                        <h4 class="text-xs font-mono font-bold mb-3 text-slate-400 uppercase tracking-wider">Historical
+                            Audit Logs</h4>
+                        <div class="bg-white/5 border border-white/5 rounded-2xl overflow-hidden">
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-xs font-mono">
+                                    <thead
+                                        class="bg-white/5 text-slate-400 uppercase text-[9px] tracking-widest border-b border-white/5">
+                                        <tr>
+                                            <th class="px-5 py-3">RUN_ID</th>
+                                            <th class="px-5 py-3">FILE_NAME</th>
+                                            <th class="px-5 py-3">COMPLIANCE_SCORE</th>
+                                            <th class="px-5 py-3">VERDICT</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dash-recent-table" class="divide-y divide-white/5 text-slate-300">
+                                        <!-- Built dynamically in JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab: AI Chat -->
+                    <div id="tab-chat" class="app-tab-content hidden h-full flex flex-col min-h-[500px]">
+                        <div class="flex items-center justify-between mb-4 border-b border-white/5 pb-4">
+                            <h3 class="text-base font-display font-bold text-white flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+                                FMCSA Compliance RAG Copilot
+                            </h3>
+                            <span
+                                class="text-[8px] font-mono px-2 py-1 bg-purple-500/10 text-purple-400 rounded-lg border border-purple-500/20 font-bold tracking-wider">PART
+                                395 KNOWLEDGE BASE LOADED</span>
+                        </div>
+
+                        <div class="flex-1 bg-[#05030e] border border-white/5 rounded-2xl p-4 overflow-y-auto mb-4 space-y-4 max-h-[350px] min-h-[280px]"
+                            id="chat-window">
+                            <div class="flex space-x-3">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-500 to-indigo-600 flex items-center justify-center flex-shrink-0 shadow-[0_0_10px_rgba(0,240,255,0.4)] border border-cyan-400/20">
+                                    <i data-lucide="bot" class="w-4 h-4 text-white"></i>
+                                </div>
+                                <div
+                                    class="bg-white/5 border border-white/10 rounded-2xl rounded-tl-none p-3.5 text-xs text-slate-300 leading-relaxed max-w-[85%]">
+                                    Hello! I am the FMCSA Compliance Copilot. Ask me any regulatory questions regarding
+                                    Hours of Service, ELD Malfunctions, or file formats.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="chat-attachment-preview" class="flex flex-wrap gap-2 mb-2 hidden"></div>
+                        <form id="chat-form" class="flex items-center space-x-2 relative">
+                            <input type="file" id="chat-file-input" multiple class="hidden">
+                            <button type="button" id="chat-attachment-btn"
+                                class="p-3 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white rounded-xl transition border border-white/10 flex items-center justify-center">
+                                <i data-lucide="paperclip" class="w-4 h-4"></i>
+                            </button>
+                            <input type="text" id="chat-input"
+                                class="flex-1 bg-[#05030e] border border-white/10 rounded-xl px-4 py-3 text-xs font-mono text-white focus:outline-none focus:border-cyan-500/50 transition"
+                                placeholder="e.g., What are the rules for a power compliance diagnostic event?">
+                            <button type="submit"
+                                class="px-5 py-3 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl transition shadow-lg shadow-cyan-600/10 flex items-center justify-center">
+                                <i data-lucide="send" class="w-4 h-4"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Tab: Reports -->
+                    <div id="tab-reports" class="app-tab-content hidden h-full">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-base font-display font-bold text-white flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-pink-500"></span>
+                                Executive PDF Summaries
+                            </h3>
+                        </div>
+                        <p class="text-xs text-slate-400 mb-6 font-mono leading-relaxed">Generated with ReportLab on
+                            completion of log verification. Contains detailed regulatory checks, timeline
+                            reconstructions, and corrective log actions.</p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="reports-grid">
+                            <!-- Built dynamically in JS -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-white/5 bg-[#010006] text-center relative z-10">
+        <div class="flex items-center justify-center space-x-6 mb-6">
+            <a href="#" class="text-slate-600 hover:text-white transition"><i data-lucide="github"
+                    class="w-5 h-5"></i></a>
+            <a href="#" class="text-slate-600 hover:text-white transition"><i data-lucide="linkedin"
+                    class="w-5 h-5"></i></a>
+            <a href="#" class="text-slate-600 hover:text-white transition"><i data-lucide="file-code"
+                    class="w-5 h-5"></i></a>
+        </div>
+        <p class="text-xs font-mono text-slate-600">&copy; 2026 Shiva. Built using Django, Celery, Qdrant, and
+            LangGraph.</p>
+    </footer>
+
+    <!-- Interactive 3D Card Hover Logic Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // 3D Card Tilt Engine
+            const cards = document.querySelectorAll('.card-3d-tilt');
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const xc = rect.width / 2;
+                    const yc = rect.height / 2;
+
+                    const angleX = (yc - y) / 15;
+                    const angleY = (x - xc) / 15;
+
+                    card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) translateY(-5px)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+                });
+            });
+        });
+    </script>
+
+    <!-- Three.js (only dependency needed - R3F has no UMD browser build) -->
+    <script src="https://unpkg.com/three@0.158.0/build/three.min.js"></script>
+
+    <!-- Custom 3D Workspace & Portfolio Logic -->
+    <script src="{% static 'js/compliance_r3f.js' %}"></script>
+    <script src="{% static 'js/portfolio.js' %}"></script>
+</body>
+
+</html>

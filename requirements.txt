@@ -1,0 +1,9 @@
+django>=5.0,<6.1
+djangorestframework
+mysqlclient
+qdrant-client
+langgraph
+google-generativeai
+reportlab
+python-dotenv
+pillow

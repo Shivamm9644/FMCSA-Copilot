@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FMCSA ELD File Validator - Executive Compliance Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts - Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at top, #1e293b 0%, #0f172a 100%);
+    }
+    .glass {
+      background: rgba(30, 41, 59, 0.4);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glow-blue {
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.35);
+    }
+    .glow-green {
+      box-shadow: 0 0 20px rgba(34, 197, 94, 0.35);
+    }
+    .glow-red {
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.35);
+    }
+    .glow-orange {
+      box-shadow: 0 0 20px rgba(249, 115, 22, 0.35);
+    }
+  </style>
+</head>
+<body class="text-slate-100 min-h-screen py-10 px-4">
+  <div class="max-w-6xl mx-auto">
+    <!-- Header -->
+    <header class="flex flex-col md:flex-row justify-between items-center mb-10 pb-6 border-b border-slate-800">
+      <div class="flex items-center space-x-3 mb-4 md:mb-0">
+        <div class="p-3 bg-blue-600 rounded-xl shadow-lg glow-blue">
+          <i data-lucide="shield-check" class="w-8 h-8 text-white"></i>
+        </div>
+        <div>
+          <h1 class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">FMCSA FileValidator</h1>
+          <p class="text-xs text-slate-400">Automated ELD Telemetry Audit & HOS Compliance Engine</p>
+        </div>
+      </div>
+      <div class="flex items-center space-x-4">
+        <a href="/api/v1/dashboard/" target="_blank" class="text-xs font-semibold px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg border border-slate-700 transition">
+          <i data-lucide="layout-dashboard" class="w-4 h-4 inline-block mr-1"></i> API Dashboard
+        </a>
+      </div>
+    </header>
+
+    <!-- Upload Panel & Initial Status -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Left Column: Upload Form -->
+      <div class="glass p-6 rounded-2xl shadow-xl flex flex-col justify-between">
+        <div>
+          <h2 class="text-lg font-bold mb-3 flex items-center text-blue-400">
+            <i data-lucide="upload-cloud" class="w-5 h-5 mr-2"></i> Upload ELD Logs
+          </h2>
+          <p class="text-slate-400 text-xs mb-6">
+            Upload the raw ELD CSV data output file. The system will perform segment parsing, local checksum verification, HOS rules validation, FMCSA agent audits, malfunctions analysis, and generate an executive report.
+          </p>
+
+          <form id="uploadForm" class="space-y-4">
+            <div id="dropZone" class="border-2 border-dashed border-slate-700 hover:border-blue-500 rounded-xl p-8 text-center cursor-pointer transition bg-slate-900/40">
+              <input type="file" id="fileInput" name="file" accept=".csv" class="hidden" required>
+              <div class="space-y-3">
+                <i data-lucide="file-text" class="w-10 h-10 mx-auto text-slate-500"></i>
+                <div class="text-sm font-medium" id="dropZoneText">Click or Drag CSV File Here</div>
+                <div class="text-xs text-slate-500">Only standard ELD CSV files accepted</div>
+              </div>
+            </div>
+
+            <button type="submit" id="submitBtn" class="w-full py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 font-bold rounded-xl shadow-lg glow-blue transition flex items-center justify-center space-x-2 text-white">
+              <i data-lucide="play" class="w-4 h-4"></i>
+              <span>Upload & Run Audit</span>
+            </button>
+          </form>
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-slate-800">
+          <div class="text-slate-500 text-[10px] uppercase tracking-wider font-semibold mb-2">Instructions</div>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Ensure your CSV file contains the correct FMCSA sequence including <code>ELD File Header</code>, <code>User List</code>, <code>Commercial Motor Vehicle List</code>, and <code>ELD Event List</code> headers.
+          </p>
+        </div>
+      </div>
+
+      <!-- Right Column: Status & Live Audit Progress -->
+      <div class="lg:col-span-2 glass p-6 rounded-2xl shadow-xl min-h-[400px] flex flex-col">
+        <h2 class="text-lg font-bold mb-4 flex items-center text-emerald-400">
+          <i data-lucide="activity" class="w-5 h-5 mr-2"></i> Live Audit Console
+        </h2>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="flex-1 flex flex-col justify-center items-center text-center p-8 space-y-4">
+          <div class="p-4 bg-slate-800/80 rounded-full border border-slate-700">
+            <i data-lucide="cpu" class="w-12 h-12 text-slate-500"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-slate-300">Awaiting Upload</h3>
+            <p class="text-slate-500 text-xs max-w-sm mt-1">Please select an ELD file on the left panel to execute the compliance verification pipeline.</p>
+          </div>
+        </div>
+
+        <!-- Processing State -->
+        <div id="processingState" class="hidden flex-1 flex flex-col justify-center items-center p-8 space-y-6">
+          <div class="relative">
+            <div class="w-20 h-20 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin"></div>
+            <div class="absolute inset-0 flex justify-center items-center">
+              <i data-lucide="database" class="w-8 h-8 text-blue-500"></i>
+            </div>
+          </div>
+          <div class="text-center space-y-2">
+            <h3 class="text-lg font-bold tracking-tight text-white" id="statusHeading">File Received</h3>
+            <p class="text-slate-400 text-sm max-w-md" id="statusMessage">Uploading and initializing multi-agent compliance pipeline...</p>
+            <div class="text-xs text-slate-500 font-mono mt-2" id="taskDetails">Task ID: N/A</div>
+          </div>
+        </div>
+
+        <!-- Results State -->
+        <div id="resultsState" class="hidden flex-1 space-y-6 overflow-y-auto max-h-[600px] pr-2">
+          <!-- Summary Metrics Cards -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800 text-center relative overflow-hidden">
+              <div class="text-xs text-slate-400 font-medium">Compliance Score</div>
+              <div class="text-3xl font-black mt-2 text-white" id="scoreVal">100.00</div>
+              <div class="text-[10px] text-emerald-400 font-semibold mt-1">FMCSA Compliant</div>
+            </div>
+            <div id="riskCard" class="bg-slate-900/60 p-4 rounded-xl border border-slate-800 text-center">
+              <div class="text-xs text-slate-400 font-medium">Risk Assessment</div>
+              <div class="text-2xl font-bold mt-2 uppercase text-emerald-400" id="riskVal">Low</div>
+              <div class="text-[10px] text-slate-500 font-medium mt-2">Overall Risk Level</div>
+            </div>
+            <div id="severityCard" class="bg-slate-900/60 p-4 rounded-xl border border-slate-800 text-center">
+              <div class="text-xs text-slate-400 font-medium">Severity</div>
+              <div class="text-2xl font-bold mt-2 uppercase text-slate-300" id="severityVal">None</div>
+              <div class="text-[10px] text-slate-500 font-medium mt-2">Violation Impact</div>
+            </div>
+            <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800 text-center flex flex-col justify-center items-center">
+              <a id="downloadPdfBtn" href="#" class="w-full py-2.5 px-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg text-xs shadow-lg glow-green transition flex items-center justify-center space-x-1">
+                <i data-lucide="file-down" class="w-4 h-4"></i>
+                <span>Download Report</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Section Tabs -->
+          <div class="flex space-x-2 border-b border-slate-800">
+            <button onclick="switchTab('failures')" class="tab-btn px-4 py-2 text-xs font-semibold border-b-2 border-blue-500 text-blue-400 transition" id="tab-failures">Rule Checks</button>
+            <button onclick="switchTab('diagnostics')" class="tab-btn px-4 py-2 text-xs font-semibold text-slate-400 hover:text-slate-200 transition" id="tab-diagnostics">Diagnostics</button>
+            <button onclick="switchTab('malfunctions')" class="tab-btn px-4 py-2 text-xs font-semibold text-slate-400 hover:text-slate-200 transition" id="tab-malfunctions">Malfunctions</button>
+            <button onclick="switchTab('investigations')" class="tab-btn px-4 py-2 text-xs font-semibold text-slate-400 hover:text-slate-200 transition" id="tab-investigations">Investigations</button>
+          </div>
+
+          <!-- Tab Content: Failures / Rule Checks -->
+          <div id="content-failures" class="tab-content space-y-3">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr class="border-b border-slate-800 text-slate-400 font-semibold uppercase">
+                    <th class="pb-2">Rule ID</th>
+                    <th class="pb-2">Status</th>
+                    <th class="pb-2">Expected</th>
+                    <th class="pb-2">Actual</th>
+                    <th class="pb-2 text-right">Severity</th>
+                  </tr>
+                </thead>
+                <tbody id="rulesTableBody" class="divide-y divide-slate-900">
+                  <!-- JS Inserted -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Tab Content: Diagnostics -->
+          <div id="content-diagnostics" class="tab-content hidden space-y-3">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr class="border-b border-slate-800 text-slate-400 font-semibold uppercase">
+                    <th class="pb-2">Diagnostic Type</th>
+                    <th class="pb-2">Description</th>
+                    <th class="pb-2 text-right">Severity</th>
+                  </tr>
+                </thead>
+                <tbody id="diagTableBody" class="divide-y divide-slate-900">
+                  <!-- JS Inserted -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Tab Content: Malfunctions -->
+          <div id="content-malfunctions" class="tab-content hidden space-y-3">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr class="border-b border-slate-800 text-slate-400 font-semibold uppercase">
+                    <th class="pb-2">Malfunction Type</th>
+                    <th class="pb-2">Description</th>
+                    <th class="pb-2">Escalated</th>
+                    <th class="pb-2 text-right">Severity</th>
+                  </tr>
+                </thead>
+                <tbody id="malfTableBody" class="divide-y divide-slate-900">
+                  <!-- JS Inserted -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Tab Content: Investigations -->
+          <div id="content-investigations" class="tab-content hidden space-y-4">
+            <div id="investigationsContainer" class="space-y-4">
+              <!-- JS Inserted -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Elements
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+    const dropZoneText = document.getElementById('dropZoneText');
+    const uploadForm = document.getElementById('uploadForm');
+    
+    const emptyState = document.getElementById('emptyState');
+    const processingState = document.getElementById('processingState');
+    const resultsState = document.getElementById('resultsState');
+    
+    const statusHeading = document.getElementById('statusHeading');
+    const statusMessage = document.getElementById('statusMessage');
+    const taskDetails = document.getElementById('taskDetails');
+
+    // Drag and Drop Logic
+    dropZone.addEventListener('click', () => fileInput.click());
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('border-blue-500', 'bg-blue-500/5');
+    });
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('border-blue-500', 'bg-blue-500/5');
+    });
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('border-blue-500', 'bg-blue-500/5');
+      if (e.dataTransfer.files.length) {
+        fileInput.files = e.dataTransfer.files;
+        updateFileName(e.dataTransfer.files[0].name);
+      }
+    });
+
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files.length) {
+        updateFileName(fileInput.files[0].name);
+      }
+    });
+
+    function updateFileName(name) {
+      dropZoneText.innerHTML = `<span class="text-blue-400 font-bold">${name}</span> selected`;
+    }
+
+    // Submit & Poll Logic
+    uploadForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const files = fileInput.files;
+      if (!files.length) return;
+
+      const formData = new FormData();
+      formData.append('file', files[0]);
+
+      // Show processing UI
+      emptyState.classList.add('hidden');
+      resultsState.classList.add('hidden');
+      processingState.classList.remove('hidden');
+
+      statusHeading.textContent = "Uploading File";
+      statusMessage.textContent = "Sending ELD telemetry data to server...";
+      taskDetails.textContent = "";
+
+      try {
+        const response = await fetch('/api/v1/eld/upload/', {
+          method: 'POST',
+          body: formData
+        });
+
+        const json = await response.json();
+        if (!response.ok) {
+          throw new Error(json.error || json.details || 'Pipeline initialization failed.');
+        }
+
+        // Get file/run IDs
+        const fileId = json.eld_file || json.id;
+        const taskId = json.task_id || 'N/A';
+
+        statusHeading.textContent = "Running Audit Engine";
+        statusMessage.textContent = "Analyzing rules, tracking checksums, computing compliance score...";
+        taskDetails.textContent = `File ID: ${fileId} | Task ID: ${taskId}`;
+
+        // Start polling until completed
+        pollValidationRun(fileId);
+      } catch (err) {
+        showError(err.message);
+      }
+    });
+
+    async function pollValidationRun(fileId) {
+      const interval = setInterval(async () => {
+        try {
+          const response = await fetch(`/api/v1/eld/${fileId}/`);
+          const json = await response.json();
+
+          // Check status of eld file
+          const status = json.status;
+          if (status === 'completed') {
+            clearInterval(interval);
+            showResults(json);
+          } else if (status === 'failed') {
+            clearInterval(interval);
+            showError(json.error_log || 'Validation pipeline failed execution.');
+          }
+        } catch (err) {
+          clearInterval(interval);
+          showError('Lost connection to server during audit.');
+        }
+      }, 2000);
+    }
+
+    function showError(msg) {
+      processingState.classList.add('hidden');
+      emptyState.classList.remove('hidden');
+      alert('Error: ' + msg);
+    }
+
+    // Tab Switching
+    function switchTab(tabId) {
+      // Buttons
+      document.querySelectorAll('.tab-btn').forEach(b => {
+        b.classList.remove('border-blue-500', 'text-blue-400');
+        b.classList.add('text-slate-400');
+      });
+      document.getElementById('tab-' + tabId).classList.add('border-blue-500', 'text-blue-400');
+      document.getElementById('tab-' + tabId).classList.remove('text-slate-400');
+
+      // Panels
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+      document.getElementById('content-' + tabId).classList.remove('hidden');
+    }
+
+    function showResults(data) {
+      processingState.classList.add('hidden');
+      resultsState.classList.remove('hidden');
+
+      const latestRun = data.latest_run || {};
+
+      // Dashboard stats
+      document.getElementById('scoreVal').textContent = parseFloat(data.compliance_score || 100.0).toFixed(2);
+      
+      const risk = latestRun.risk_level || 'LOW';
+      const riskVal = document.getElementById('riskVal');
+      riskVal.textContent = risk;
+      const riskCard = document.getElementById('riskCard');
+      riskCard.className = "bg-slate-900/60 p-4 rounded-xl border border-slate-800 text-center";
+      if (risk === 'HIGH') {
+        riskVal.className = "text-2xl font-bold mt-2 uppercase text-red-500";
+        riskCard.classList.add('border-red-950/40', 'glow-red');
+      } else if (risk === 'MEDIUM') {
+        riskVal.className = "text-2xl font-bold mt-2 uppercase text-orange-500";
+        riskCard.classList.add('border-orange-950/40', 'glow-orange');
+      } else {
+        riskVal.className = "text-2xl font-bold mt-2 uppercase text-emerald-500";
+        riskCard.classList.add('border-emerald-950/40', 'glow-green');
+      }
+
+      const severity = latestRun.severity_level || 'NONE';
+      const severityVal = document.getElementById('severityVal');
+      severityVal.textContent = severity;
+      const severityCard = document.getElementById('severityCard');
+      severityCard.className = "bg-slate-900/60 p-4 rounded-xl border border-slate-800 text-center";
+      if (severity === 'CRITICAL') {
+        severityVal.className = "text-2xl font-bold mt-2 uppercase text-red-500";
+        severityCard.classList.add('border-red-950/40');
+      } else if (severity === 'WARNING') {
+        severityVal.className = "text-2xl font-bold mt-2 uppercase text-orange-400";
+        severityCard.classList.add('border-orange-950/40');
+      } else {
+        severityVal.className = "text-2xl font-bold mt-2 uppercase text-slate-400";
+      }
+
+      // Download PDF Link
+      const downloadBtn = document.getElementById('downloadPdfBtn');
+      downloadBtn.href = `/api/v1/reports/${data.id}/download/`;
+
+      // Fill Rule Checks Table
+      const rulesBody = document.getElementById('rulesTableBody');
+      rulesBody.innerHTML = '';
+      const ruleValidations = latestRun.rule_validations || [];
+      if (ruleValidations.length === 0) {
+        rulesBody.innerHTML = `<tr><td colspan="5" class="py-4 text-center text-slate-500">No rule checks performed</td></tr>`;
+      } else {
+        ruleValidations.forEach(r => {
+          const badgeClass = r.status === 'PASS' ? 'bg-emerald-950/60 text-emerald-400 border-emerald-800' : 'bg-red-950/60 text-red-400 border-red-800';
+          const severityBadge = r.severity === 'high' || r.severity === 'critical' ? 'text-red-400' : (r.severity === 'medium' ? 'text-orange-400' : 'text-slate-400');
+          rulesBody.innerHTML += `
+            <tr class="hover:bg-slate-900/40">
+              <td class="py-3 font-semibold text-slate-300 font-mono">${r.rule_id}</td>
+              <td class="py-3"><span class="px-2 py-0.5 rounded border text-[10px] font-bold ${badgeClass}">${r.status}</span></td>
+              <td class="py-3 text-slate-400">${r.expected_value || 'N/A'}</td>
+              <td class="py-3 text-slate-400 font-mono">${r.actual_value || 'N/A'}</td>
+              <td class="py-3 text-right font-medium ${severityBadge} capitalize">${r.severity}</td>
+            </tr>
+          `;
+        });
+      }
+
+      // Fill Diagnostics Table
+      const diagBody = document.getElementById('diagTableBody');
+      diagBody.innerHTML = '';
+      const diagnostics = latestRun.diagnostic_events || [];
+      if (diagnostics.length === 0) {
+        diagBody.innerHTML = `<tr><td colspan="3" class="py-4 text-center text-slate-500">No diagnosed events detected</td></tr>`;
+      } else {
+        diagnostics.forEach(d => {
+          diagBody.innerHTML += `
+            <tr class="hover:bg-slate-900/40">
+              <td class="py-3 font-semibold text-slate-300">${d.diagnostic_type}</td>
+              <td class="py-3 text-slate-400">${d.description}</td>
+              <td class="py-3 text-right text-orange-400 capitalize">${d.severity}</td>
+            </tr>
+          `;
+        });
+      }
+
+      // Fill Malfunctions Table
+      const malfBody = document.getElementById('malfTableBody');
+      malfBody.innerHTML = '';
+      const malfunctions = latestRun.malfunction_events || [];
+      if (malfunctions.length === 0) {
+        malfBody.innerHTML = `<tr><td colspan="4" class="py-4 text-center text-slate-500">No ELD malfunctions detected</td></tr>`;
+      } else {
+        malfunctions.forEach(m => {
+          malfBody.innerHTML += `
+            <tr class="hover:bg-slate-900/40">
+              <td class="py-3 font-semibold text-slate-300">${m.malfunction_type}</td>
+              <td class="py-3 text-slate-400">${m.description}</td>
+              <td class="py-3"><span class="px-2 py-0.5 rounded bg-red-950 text-red-400 border border-red-800 text-[10px]">${m.escalated_from_diagnostic ? 'YES' : 'NO'}</span></td>
+              <td class="py-3 text-right text-red-400 font-bold capitalize">${m.severity}</td>
+            </tr>
+          `;
+        });
+      }
+
+      // Fill Investigations
+      const invContainer = document.getElementById('investigationsContainer');
+      invContainer.innerHTML = '';
+      const investigations = latestRun.investigations || [];
+      if (investigations.length === 0) {
+        invContainer.innerHTML = `<div class="p-4 text-center text-slate-500 text-xs">No root-cause investigations found</div>`;
+      } else {
+        investigations.forEach(inv => {
+          invContainer.innerHTML += `
+            <div class="p-4 bg-slate-900/50 border border-slate-800 rounded-xl space-y-2">
+              <div class="flex items-center space-x-2 text-blue-400">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i>
+                <h4 class="font-bold text-sm">Root Cause Analysis</h4>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">${inv.root_cause}</p>
+              <div class="text-[10px] text-slate-500 font-medium">Evidence Checked: ${JSON.stringify(inv.evidence)}</div>
+            </div>
+          `;
+        });
+      }
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>
