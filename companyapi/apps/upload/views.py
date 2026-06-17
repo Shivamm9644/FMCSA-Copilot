@@ -235,6 +235,8 @@ class ELDFileViewSet(viewsets.ModelViewSet):
             return Response(response_data, status=status.HTTP_202_ACCEPTED)
             
         except Exception as e:
+            import traceback
+            traceback.print_exc()
             val_run.status = 'failed'
             val_run.save()
             return Response({
