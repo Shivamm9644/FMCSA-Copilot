@@ -49,7 +49,7 @@ langgraph-prebuilt==1.1.0
 langgraph-sdk==0.4.2
 langsmith==0.8.11
 Markdown==3.10.2
-mysqlclient==2.2.8
+PyMySQL
 numpy==2.4.6
 orjson==3.11.9
 ormsgpack==1.12.2

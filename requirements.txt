@@ -1,6 +1,6 @@
 django>=5.0,<6.1
 djangorestframework
-mysqlclient
+PyMySQL
 qdrant-client
 langgraph
 google-generativeai
