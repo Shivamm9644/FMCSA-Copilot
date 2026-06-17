@@ -93,3 +93,6 @@ zstandard==0.25.0
 django-jazzmin
 djangorestframework-simplejwt
 django-cors-headers
+PyPDF2
+python-docx
+
